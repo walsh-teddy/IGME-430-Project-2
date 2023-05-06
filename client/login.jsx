@@ -3,8 +3,11 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const handleLogin = (e) => {
+  console.log('DEBUG: handleLogin called');
   e.preventDefault();
   helper.hideError();
+
+  console.log('DEBUG: helper.hideError finished');
 
   const username = e.target.querySelector('#user').value;
   const pass = e.target.querySelector('#pass').value;
@@ -50,12 +53,22 @@ const LoginWindow = (props) => {
       action='/login'
       method='POST'
       className='mainForm'
+      class="rows"
     >
-      <label htmlFor='username'>Username: </label>
-      <input id='user' type='text' name='username' placeholder='username' />
-      <label htmlFor='pass'> Password: </label>
-      <input id='pass' type='text' name='pass' placeholder='password' />
-      <input className='formSubmit' type='submit' value='Sign in' />
+      <div class="row">
+        <label htmlFor='username'>Username: </label>
+        <input id='user' type='text' name='username' placeholder='username' />
+      </div>
+      <div class="row">
+        <label htmlFor='pass'> Password: </label>
+        <input id='pass' type='text' name='pass' placeholder='password' />
+      </div>
+      <div class="row">
+        <input className='formSubmit' type='submit' value='Sign in' />
+      </div>
+      <div id="errorMessage" class='hidden row'>
+        <h3><span id="errorMessageText" class="has-text-danger"></span></h3>
+      </div>
     </form>
   );
 };
@@ -68,14 +81,26 @@ const SignupWindow = (props) => {
       action='/signup'
       method='POST'
       className='mainForm'
+      class="rows"
     >
-      <label htmlFor='username'>Username: </label>
-      <input id='user' type='text' name='username' placeholder='username' />
-      <label htmlFor='pass'> Password: </label>
-      <input id='pass' type='text' name='pass' placeholder='password' />
-      <label htmlFor='pass2'> Password: </label>
-      <input id='pass2' type='text' name='pass2' placeholder='retype password' />
-      <input className='formSubmit' type='submit' value='Sign up' />
+      <div class="row">
+        <label htmlFor='username'>Username: </label>
+        <input id='user' type='text' name='username' placeholder='username' />
+      </div>
+      <div class="row">
+        <label htmlFor='pass'> Password: </label>
+        <input id='pass' type='text' name='pass' placeholder='password' />
+      </div>
+      <div class="row">
+        <label htmlFor='pass2'> Password: </label>
+        <input id='pass2' type='text' name='pass2' placeholder='retype password' />
+      </div>
+      <div class="row">
+        <input className='formSubmit' type='submit' value='Sign up' />
+      </div>
+      <div id="errorMessage" class='hidden row'>
+        <h3><span id="errorMessageText" class="has-text-danger"></span></h3>
+      </div>
     </form>
   );
 };

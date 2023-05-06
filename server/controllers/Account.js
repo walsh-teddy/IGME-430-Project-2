@@ -25,7 +25,7 @@ const login = (req, res) => {
 
     req.session.account = Account.toAPI(account);
 
-    return res.json({ redirect: '/maker' });
+    return res.json({ redirect: '/chat' });
   });
 };
 
@@ -47,7 +47,7 @@ const signup = async (req, res) => {
     const newAccount = new Account({ username, password: hash });
     await newAccount.save();
     req.session.account = Account.toAPI(newAccount);
-    return res.json({ redirect: '/maker' });
+    return res.json({ redirect: '/chat' });
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
@@ -57,9 +57,45 @@ const signup = async (req, res) => {
   }
 };
 
+const getPremium = async (req, res) => {
+  try {
+    const query = { username: req.session.account.username };
+    const docs = await Account.find(query).select('premium').lean().exec();
+
+    // Send back data (docs is an array, so we just need to look at index 0)
+    return res.json({ premium: docs[0].premium });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Error retrieving account!' });
+  }
+};
+
+const togglePremium = async (req, res) => {
+  // Get the up-to-date account from the database
+  const userAccount = req.session.account;
+  const { username } = userAccount;
+  const [accountData] = await Account.find({ username }).exec();
+
+  // Change the account on the database
+  accountData.premium = !accountData.premium;
+  const savePromise = accountData.save();
+  savePromise.then(() => {
+    req.session.account.premium = accountData.premium;
+    res.json({ premium: accountData.premium });
+  });
+  savePromise.catch((err) => {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  });
+
+  return false;
+};
+
 module.exports = {
   loginPage,
   login,
   logout,
   signup,
+  getPremium,
+  togglePremium,
 };

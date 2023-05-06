@@ -17,6 +17,8 @@ const saltRounds = 10;
 
 let AccountModel = {};
 
+const setPremium = (newValue) => newValue;
+
 /* Our schema defines the data we will store. A username (string of alphanumeric
    characters), a password (actually the hashed version of the password created
    by bcrypt), and the created date.
@@ -37,11 +39,17 @@ const AccountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  premium: {
+    type: Boolean,
+    default: false,
+    $set: (newValue) => newValue,
+  },
 });
 
 // Converts a doc to something we can store in redis later on.
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
+  premium: doc.premium,
   _id: doc._id,
 });
 

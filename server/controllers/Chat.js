@@ -13,6 +13,7 @@ const sendChatMessage = async (req, res) => {
   const chatMessageData = {
     Contents: req.body.contents,
     owner: req.session.account.username,
+    premium: req.session.account.premium,
   };
 
   try {
@@ -21,6 +22,7 @@ const sendChatMessage = async (req, res) => {
     return res.status(201).json({
       contents: newChatMessage.Contents,
       owner: newChatMessage.owner,
+      premium: newChatMessage.premium,
     });
   } catch (err) {
     console.log(err);
@@ -31,7 +33,7 @@ const sendChatMessage = async (req, res) => {
 const getChat = async (req, res) => {
   try {
     const query = { };
-    const docs = await ChatMessage.find(query).select('Contents owner').lean().exec();
+    const docs = await ChatMessage.find(query).select('Contents owner premium').lean().exec();
 
     // Send back the now compiled list of chat messages
     return res.json({ chat: docs });

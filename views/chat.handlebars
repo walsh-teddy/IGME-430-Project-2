@@ -1,27 +1,55 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>DomoMaker</title>
-  <link rel="shortcut icon" href="/assets/img/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <title>Epic Chat | Chat</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
-    <div class="navlink"><a href="/logout">Log out</a></div>
-    <div class="navlink"><a href="/maker">Maker</a></div>
-  </nav>
+  <main class="px-4 py-4 has-background-primary" style="height:100vh;">
+    <div class="rows">
 
-  <section id="writeMessage">
-  </section>
+      <!-- Top -->
+      <div class="row">
+        <nav class="navbar is-info">
+          <div class="navbar-brand">
+            <a class="navbar-burger" id="burger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
+          </div>
+          <div class="navbar-menu" id="nav-links">
+            <div class="navbar-start" id="links">
+              <a class="navbar-item is-hoverable" id="loginButton" href="/logout">Log Out</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      
+      <!-- Bottom -->
+      <div class="row columns">
 
-  <section id="chat">
-  </section>
+        <!-- Left -->
+        <div class="column has-background-primary">
+          <div class="box">
+          <section id="writeMessage"></section>
+          <section id="togglePremium"></section>
 
-  <div id="domoMessage" class='hidden'>
-    <img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage"></span></h3>
-    <img id="domo" src="assets/img/domo.png" alt="domo"/>
-  </div>
+            <div id="errorMessage" class='hidden'>
+              <h3><span id="errorMessageText" class="has-text-danger"></span></h3>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right -->
+        <div class="column has-background-primary">
+          <section id="chat">
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </main>
   <script src="/assets/chatBundle.js"></script>
 </body>
 </html>

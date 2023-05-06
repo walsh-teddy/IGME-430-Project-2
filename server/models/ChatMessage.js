@@ -13,6 +13,10 @@ const ChatMessageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  premium: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 ChatMessageSchema.static.toAPI = (doc) => ({

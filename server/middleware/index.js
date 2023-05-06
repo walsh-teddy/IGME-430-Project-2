@@ -12,7 +12,7 @@ const requireLogin = (req, res, next) => {
 const requireLogout = (req, res, next) => {
   // Check if there is an account attached to their session (they are logged in)
   if (req.session.account) { // They are logged in
-    return res.redirect('/maker');
+    return res.redirect('/chat');
   }
   // If they logged out, then do the next middleware function
   return next();
